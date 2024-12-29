@@ -1,11 +1,13 @@
 ﻿#ifndef __MY_3DSTRUCT_H_
 #define __MY_3DSTRUCT_H_
 
-#include "D3DX9.h"
-#include "D3DX9Math.h"
+#include "d3dx9.h"
+#include "d3dx9math.h"
 #include <string>
 
 #include "shared/types.h"
+
+// $(DXSDK_DIR)Lib\x86;$(LibraryPath)
 
 const float __PI = 3.141592654f;
 const float __PI2 = 6.283185308f;

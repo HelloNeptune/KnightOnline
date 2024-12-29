@@ -48,6 +48,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\bin\$(Configuration)\</OutDir>
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>

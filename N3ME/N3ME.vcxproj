@@ -35,11 +35,15 @@
     <OutDir>Debug\</OutDir>
     <IntDir>Debug\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)$(DXSDK_DIR)Include</IncludePath>
+    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Tool_Release|Win32'">
     <OutDir>Release\</OutDir>
     <IntDir>Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(IncludePath)$(DXSDK_DIR)Include</IncludePath>
+    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x86</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
