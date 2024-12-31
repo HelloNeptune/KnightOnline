@@ -503,7 +503,7 @@ void CGameEng::CameraZoom(float fDelta)
 	{
 		m_fZoomBackwardOrFoward -= fDelta * s_fSecPerFrm; // 1.5인칭, 앞에서 본 시점일때 카메라 Zoom 1.0f 가 기준이다.
 		if(m_fZoomBackwardOrFoward < 0.4f) m_fZoomBackwardOrFoward = 0.4f; // 아래 보는값
-		else if(m_fZoomBackwardOrFoward >= 1.6f) m_fZoomBackwardOrFoward = 1.6f;
+		//else if(m_fZoomBackwardOrFoward >= 1.6f) m_fZoomBackwardOrFoward = 1.6f;
 	}
 	else if(VP_THIRD_PERSON == m_eViewPoint) // 위에서 보는 건 거리만 늘였다 줄였다 한다..
 	{
@@ -511,7 +511,7 @@ void CGameEng::CameraZoom(float fDelta)
 
 		m_fOffsetVPGod -= 4.0f * fDelta * s_fSecPerFrm;
 		if(m_fOffsetVPGod < 2.0f) m_fOffsetVPGod = 2.0f; // 너무작아지면 멈추고..
-		else if(m_fOffsetVPGod > 10.0f) m_fOffsetVPGod = 10.0f; // 너무 커져도 멈추고..
+		//else if(m_fOffsetVPGod > 10.0f) m_fOffsetVPGod = 10.0f; // 너무 커져도 멈추고..
 		return; // 돌아간다!
 	}
 }
