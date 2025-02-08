@@ -129,7 +129,7 @@ bool CN3FXParticle::Tick()
 	m_fRot += CN3Base::s_fSecPerFrm*m_pRefParent->m_fPtRotVelocity;
 
 	m_fDropVel += m_pRefParent->m_fPtGravity * CN3Base::s_fSecPerFrm;
-	m_fDropY += m_fDropVel * CN3Base::s_fSecPerFrm;
+	m_fDropY += (m_fDropVel * 1) * CN3Base::s_fSecPerFrm;
 
 	m_fCurrLife += CN3Base::s_fSecPerFrm;
 

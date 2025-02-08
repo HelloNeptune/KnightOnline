@@ -421,7 +421,7 @@ void CN3Camera::Render(float fUnitSize)
 
 void CN3Camera::Tick(float fFrm)
 {
-	CN3Transform::Tick(fFrm);
+	//CN3Transform::Tick(fFrm);
 
 	////////////////////////////////////////////////////////////////////////
 	// View Matrix 및 Projection Matrix Setting

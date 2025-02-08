@@ -52,7 +52,10 @@ bool CN3FXPlugPart::Load(HANDLE hFile)
 
 		m_pFXB = new CN3FXBundle();
 		if (false == m_pFXB->LoadFromFile(szFN)) {delete m_pFXB; m_pFXB = NULL;}
-		else {m_pFXB->Init(); m_pFXB->Trigger();}
+		else {
+			m_pFXB->Init();
+			m_pFXB->Trigger();
+		}
 	}
 
 	ReadFile(hFile, &m_nRefIndex, sizeof(m_nRefIndex), &dwNum, NULL);

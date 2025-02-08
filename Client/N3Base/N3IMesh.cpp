@@ -320,6 +320,8 @@ bool CN3IMesh::Load(HANDLE hFile)
 		this->Create(nFC, nVC, nUVC);
 		ReadFile(hFile, m_pVertices, sizeof(__VertexXyzNormal) * nVC, (DWORD *)&dwRWC, NULL);
 		ReadFile(hFile, m_pwVtxIndices, 2 * nFC * 3, (DWORD *)&dwRWC, NULL); // uint16_t
+		m_pVertices;
+		m_pwVtxIndices;
 	}
 	else
 	{
@@ -384,6 +386,7 @@ void CN3IMesh::FindMinMax()
 		if(m_pVertices[i].y > m_vMax.y) m_vMax.y = m_pVertices[i].y;
 		if(m_pVertices[i].z > m_vMax.z) m_vMax.z = m_pVertices[i].z;
 	}
+	int qqqq = 0;
 }
 
 #ifdef _N3TOOL

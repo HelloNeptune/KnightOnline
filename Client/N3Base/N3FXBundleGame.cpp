@@ -160,6 +160,7 @@ void CN3FXBundleGame::Trigger(int iSourceID, __Vector3 TargetPos, int iSndID)
 
 bool CN3FXBundleGame::Tick()
 {
+	// ### Burada effectler active edilince tick oluyor
 	if(m_dwState==FX_BUNDLE_STATE_DEAD) return false;
 	
 	m_fLife += CN3Base::s_fSecPerFrm;
@@ -341,6 +342,7 @@ bool CN3FXBundleGame::Tick()
 		if(CheckAllPartsDead() || (m_fLife0 !=0.0f && m_fLife > m_fLife0) )
 		{
 			m_dwState = FX_BUNDLE_STATE_DEAD;
+			// ### Burada ornegin sprint skill effect bitince init tetikleniyor
 			Init();
 			return false;
 		}

@@ -409,7 +409,9 @@ void CN3Joint::ReCalcMatrix()
 	}
 	m_Matrix.PosSet(m_vPos);
 
-	if(m_pParent) m_Matrix *= m_pParent->m_Matrix; // 부모 행렬
+	if (m_pParent) {
+		m_Matrix *= m_pParent->m_Matrix; // 부모 행렬
+	}
 }
 
 void CN3Joint::MatricesGet(__Matrix44 *pMtxs, int &nJointIndex)

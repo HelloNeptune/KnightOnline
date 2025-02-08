@@ -280,10 +280,18 @@ void CN3FXBundle::Init()
 bool CN3FXBundle::Load(HANDLE hFile)
 {
 	DWORD dwRWC = 0;
-
+	// FXPack(LOAD)(1)
 	ReadFile(hFile, &m_iVersion, sizeof(int), &dwRWC, NULL);
+
+
 	
 	ReadFile(hFile, &m_fLife0, sizeof(float), &dwRWC, NULL);
+
+	char dbgStr[256];
+	DWORD position = SetFilePointer(hFile, 0, NULL, FILE_CURRENT);
+	sprintf_s(dbgStr, "[DEBUG] Position: 0x%08X (%d bytes)\n", position, position);
+	OutputDebugString(dbgStr);
+
 	if(m_fLife0 > 10.0f) m_fLife0 = 10.0f; 
 	ReadFile(hFile, &m_fVelocity, sizeof(float), &dwRWC, NULL);
 
@@ -387,6 +395,11 @@ bool CN3FXBundle::Load(HANDLE hFile)
 
 			ReadFile(hFile, &iType, sizeof(int), &dwRWC, NULL);
 
+			char dbgStr[256];
+			DWORD position = SetFilePointer(hFile, 0, NULL, FILE_CURRENT);
+			sprintf_s(dbgStr, "[DEBUG] Position: 0x%08X (%d bytes)\n", position, position);
+			OutputDebugString(dbgStr);
+
 			if(iType == FX_PART_TYPE_NONE) continue;
 
 			else if(iType == FX_PART_TYPE_PARTICLE)
@@ -406,6 +419,7 @@ bool CN3FXBundle::Load(HANDLE hFile)
 				m_pPart[i]->pPart->m_pRefPrevPart = NULL;
 				m_pPart[i]->pPart->m_iType = FX_PART_TYPE_PARTICLE;
 				//m_pPart[i]->pPart->LoadFromFile(FName);
+				//(LOAD)(2)
 				m_pPart[i]->pPart->Load(hFile);
 			}
 
@@ -521,6 +535,7 @@ bool CN3FXBundle::Save(HANDLE hFile)
 //
 bool CN3FXBundle::Tick()
 {
+	// FXPackTick(tick)
 	if(m_dwState==FX_BUNDLE_STATE_DEAD) return false;
 
 	m_fLife += CN3Base::s_fSecPerFrm;

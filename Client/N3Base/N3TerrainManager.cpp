@@ -78,6 +78,7 @@ CN3TerrainManager::~CN3TerrainManager()
 
 /////////////////////////////////////////////////////////////////////
 
+// @follow-up Init world method
 void CN3TerrainManager::InitWorld(int iZoneID, const __Vector3& vPosPlayer)
 {
 	__TABLE_ZONE* pZone = s_pTbl_Zones.Find(s_pPlayer->m_InfoExt.iZoneCur);

@@ -145,7 +145,7 @@ void CN3TransformCollision::RenderCollisionMesh()
 	if(NULL == m_pMeshCollision) return;
 	s_lpD3DDev->SetTransform(D3DTS_WORLD, &m_Matrix);
 
-	m_pMeshCollision->Render(0xffff0000); // 빨간색.
+	//m_pMeshCollision->Render(0xffff0000); // 빨간색.
 }
 
 void CN3TransformCollision::RenderClimbMesh()

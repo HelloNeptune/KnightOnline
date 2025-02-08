@@ -593,7 +593,7 @@ bool CN3CPlug::Load(HANDLE hFile)
 		ReadFile(hFile, &m_fTrace1, 4, &dwRWC, NULL); // 궤적 위치..
 	}
 	else m_nTraceStep = 0;
-
+	m_strFXMainName;
 	int iUseVMesh = 0;
 	ReadFile(hFile, &iUseVMesh, 4, &dwRWC, NULL); // 메시를 쓰는가??
 	if(iUseVMesh)
@@ -629,6 +629,8 @@ void CN3CPlug::InitFX(std::string& szFXMain, std::string& szFXTail, D3DCOLOR Tra
 		m_strFXMainName = szFXMain;
 		if(m_pFXMainBundle) delete m_pFXMainBundle;
 		m_pFXMainBundle = new CN3FXBundle;
+
+		// Burası mainFX'in olusturuldugu yer mainFX'den 1 tane oluyor
 		if(!m_pFXMainBundle->LoadFromFile(m_strFXMainName.c_str()))
 		{
 			delete m_pFXMainBundle;
@@ -748,11 +750,13 @@ void CN3CPlug::Render(const __Matrix44& mtxParent, const __Matrix44& mtxJoint)
 
 void CN3CPlug::RenderFX(const __Matrix44& mtxParent, const __Matrix44& mtxJoint)
 {
+	// ### Render FX kismi burada
+
 	if(!m_pFXMainBundle || !m_pFXPart) return;
 	if(!m_PMeshInstFX.GetVertices()) return;
 	__VertexT1* pvAxis = m_PMeshInstFX.GetVertices();
 	//if(m_pFXMainBundle->FileName() != m_strFXMainName) InitFX(m_strFXMainName, m_strFXTailName);
-
+	m_strFXMainName;
 	m_pFXMainBundle->Tick();
 
 	static __Matrix44 mtx;
@@ -765,6 +769,7 @@ void CN3CPlug::RenderFX(const __Matrix44& mtxParent, const __Matrix44& mtxJoint)
 	//
 	__Vector3 vMax = m_PMeshInstFX.GetMesh()->Max();
 	__Vector3 vMin = m_PMeshInstFX.GetMesh()->Min();
+	__Vector3 test = __Vector3(0, 0, 0);
 	__Vector3 vInterval = vMax - vMin;
 	__Vector3 vTmp;
 	float fHeight = vMax.y - vMin.y;
@@ -830,8 +835,19 @@ void CN3CPlug::RenderFX(const __Matrix44& mtxParent, const __Matrix44& mtxJoint)
 		}
 
 		float fArg1 = m_pFXMainBundle->m_fLife * 1.2f;
+
+		// ###### Debug
+		/*std::string debugMessage = "m_pFXMainBundle->m_fLife: " + std::to_string(m_pFXMainBundle->m_fLife) + " a2: " + std::to_string(fArg1) + "\n";
+		OutputDebugString(debugMessage.c_str());*/
+		// ###### /Debug
+
 		float fArg2 = (0.07f * (fArg1 - (int)fArg1)) - 0.035f;
 		__Vector3 vArg2 = pvAxis[0].n * fArg2;
+
+		// ###### Debug
+		std::string debugMessage = "fArg2: " + std::to_string(fArg2) + "\n";
+		//OutputDebugString(debugMessage.c_str());
+		// ###### /Debug
 
 		mtx.Identity();
 		mtx.RotationY(-__PI / 36.0f);
@@ -1358,7 +1374,7 @@ bool CN3Chr::Save(HANDLE hFile)
 #endif // end of _N3TOOL
 
 void CN3Chr::Tick(float fFrm)
-{
+{	// FXManagerTick(tick)
 	if(NULL == m_pRootJointRef)
 	{
 		m_nLOD = -1;
@@ -1400,7 +1416,9 @@ void CN3Chr::Tick(float fFrm)
 	m_FrmCtrl.fFrmPrev = m_FrmCtrl.fFrmCur; // 마지막 에니메이션 프레임을 기억해 놓고..
 	m_FrmCtrlUpper.fFrmPrev = m_FrmCtrlUpper.fFrmCur;
 
-	if(fFrm == FRAME_SELFPLAY) this->TickAnimationFrame();
+	if (fFrm == FRAME_SELFPLAY) {
+		this->TickAnimationFrame();
+	}
 	else
 	{
 		int iJC = m_JointRefs.size();
@@ -1421,7 +1439,9 @@ void CN3Chr::Tick(float fFrm)
 //////////////////////////////////////////////////
 //	Coded (By Dino On 2002-10-11 오전 11:21:21 )
 //	FXPlug
-	if (m_pFXPlug) m_pFXPlug->Tick(this);
+	if (m_pFXPlug) {
+		m_pFXPlug->Tick(this);
+	}
 //	End Of Code (By Dino On 2002-10-11 오전 11:21:21 )
 //////////////////////////////////////////////////
 
@@ -1542,6 +1562,7 @@ void CN3Chr::TickJoints()
 			{
 				float fBlendFactor = m_FrmCtrl.fBlendTimeCur / m_FrmCtrl.fBlendTime;
 				m_JointRefs[i]->ReCalcMatrixBlended(m_FrmCtrl.fFrmCur, m_FrmCtrl.fBlendFrm, fBlendFactor); // Joint Animation Blending...
+				//m_JointRefs[i]->ReCalcMatrix();
 			}
 			else
 			{
@@ -1844,7 +1865,7 @@ void CN3Chr::BuildMesh()
 			}
 		}
 	}
-
+	int ppp = 0;
 /*	if(m_pMeshCollision && m_pSkinCollision)
 	{
 		__ASSERT(m_pMeshCollision->IndexCount() > 0, "Indices count is less than 0");

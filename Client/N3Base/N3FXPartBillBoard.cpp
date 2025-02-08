@@ -269,6 +269,7 @@ void CN3FXPartBillBoard::Stop()
 //
 bool CN3FXPartBillBoard::Tick()
 {
+	// FXBillboardTick(tick)
 	if(!CN3FXPartBase::Tick()) return false;
 
 	if(m_bTexLoop)	m_iTexIdx = (int)(m_fCurrLife * m_fTexFPS) % m_iNumTex;
@@ -304,11 +305,6 @@ bool CN3FXPartBillBoard::Tick()
 
 	m_fCurrSizeX += m_fCurrScaleVelX * CN3Base::s_fSecPerFrm;
 	m_fCurrSizeY += m_fCurrScaleVelY * CN3Base::s_fSecPerFrm;
-
-	//	m_vUnit[0].Set(-0.5f, 0.5f, 0.0f);
-	//m_vUnit[1].Set(0.5f, 0.5f, 0.0f);
-	//m_vUnit[2].Set(0.5f, -0.5f, 0.0f);
-	//m_vUnit[3].Set(-0.5f, -0.5f, 0.0f);
 
 	m_vUnit[0].x = (-0.5f) * m_fCurrSizeX;
 	m_vUnit[1].x = (0.5f) * m_fCurrSizeX;

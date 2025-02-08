@@ -1,7 +1,7 @@
 ﻿// N3ShapeMgr.cpp: implementation of the CN3ShapeMgr class.
 //
 //////////////////////////////////////////////////////////////////////
-
+// @audit N3 Shape Manager Class
 #ifdef _N3GAME
 //#include "StdAfx.h"
 #include "..\WarFare\GameProcedure.h"
@@ -115,11 +115,11 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 
 	if(false == LoadCollisionData(hFile)) return false;
 
-#ifdef _N3GAME
-#ifndef _REPENT
-	//CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
-#endif
-#endif // end of #ifndef _N3GAME
+	#ifdef _N3GAME
+	#ifndef _REPENT
+		//CUILoading* pUILoading = CGameProcedure::s_pUILoading; // 로딩바..
+	#endif
+	#endif // end of #ifndef _N3GAME
 
 	char szBuff[128];
 	int iSC = 0;
@@ -140,6 +140,7 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 
 			pShape->m_iFileFormatVersion = m_iFileFormatVersion;
 
+			
 			m_Shapes.push_back(pShape);
 
 			// pShape->m_iEventID; 바인드 포인트 100~, 200~ 성문 1100~, 1200~ 레버 2100~, 2200~
@@ -148,6 +149,11 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 			// pShape->m_iNPC_Status; toggle 0, 1
 			
 			pShape->Load(hFile);
+			
+			// @audit-info burada shape'e ait mParts mesh ve texture name bilgilerini pShape'e ekliyoruz
+			pShape->m_name = pShape->m_Parts[0]->MeshInstance()->m_szName;
+			pShape->m_texname = pShape->m_Parts[0]->Tex(0)->m_szName;
+
 			if(pShape->m_iEventID) //  ID 가 있는 오브젝트 ... NPC 로 쓸수 있다..
 			{
 				m_ShapesHaveID.push_back(pShape);
@@ -163,8 +169,20 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 					pShape->m_bVisible = false;
 				}
 				else pShape->m_bVisible = true;
+
+
+				//std::vector<char> buffer(iNL + 1, NULL);
+				//ReadFile(hFile, &buffer[0], iNL, &dwRWC, NULL);
+
+
+				//uint32_t dwName = 0;
+				//ReadFile(hFile, &dwName, 4, &dwRWC, NULL); // Shape Type
+				//pShape->m_name = dwName;
+
+
+			
 			}
-#ifdef _N3GAME
+		#ifdef _N3GAME
 			
 			// 강제 코딩... 각종 성문 열기..
 //			if(dwType & OBJ_SHAPE_EXTRA)
@@ -176,15 +194,15 @@ bool CN3ShapeMgr::Load(HANDLE hFile)
 
 			if(!(i%64))
 			{
-#ifdef _REPENT
+		#ifdef _REPENT
 				CGameProcedure::RenderLoadingBar(80 + 15 * i / iSC);
-#else
+		#else
 				int iLoading = (i+1) * 100 / iSC;
 				sprintf(szBuff, "Loading Objects... %d %%", iLoading);
 				//pUILoading->Render(szBuff, iLoading);
-#endif
+		#endif
 			}
-#endif // end of #ifndef _N3GAME
+		#endif // end of #ifndef _N3GAME
 		}
 	}
 
@@ -558,7 +576,7 @@ int CN3ShapeMgr::Add(CN3Shape *pShape)
 		__ASSERT(0, "CN3ShapeMgr::Add - Shape Add Failed. Check position");
 		return -1;
 	}
-
+	
 	pShape->SaveToFile(); // 파일로 저장하고..
 	CN3Shape* pShapeAdd = new CN3Shape();
 	if(false == pShapeAdd->LoadFromFile(pShape->FileName())) // 이 파일을 열은 다음
@@ -566,6 +584,9 @@ int CN3ShapeMgr::Add(CN3Shape *pShape)
 		delete pShapeAdd;
 		return -1;
 	}
+
+	CLogWriter::Write("Shape File Name: %s", pShape->FileName().c_str());
+	OutputDebugString(("Shape File Name: " + pShape->FileName()).c_str());
 
 	if(NULL == m_pCells[nX][nZ])
 	{
@@ -638,6 +659,7 @@ void CN3ShapeMgr::MakeMoveTable(int16_t** pMoveArray)
 }
 #endif // end of _N3TOOL
 
+// @follow-up Kamera görüşüne göre shape render logları burada
 #ifndef _3DSERVER
 void CN3ShapeMgr::Tick()
 {
@@ -668,6 +690,21 @@ void CN3ShapeMgr::Tick()
 				if(m_Shapes[iSIndex]->m_bDontRender) continue;
 
 				m_ShapesToRender.push_back(m_Shapes[iSIndex]);
+
+
+				std::string texname = m_Shapes[iSIndex]->m_texname;
+				
+				if (!(texname.find("tree") != std::string::npos ||
+					texname.find("leaves") != std::string::npos ||
+					texname.find("bush") != std::string::npos ||
+					texname.find("reed") != std::string::npos || 
+					texname.find("Tree") != std::string::npos || 
+					texname.find("wall") != std::string::npos )) {
+					/*OutputDebugString("==================\n");
+					OutputDebugString(("Rendering shape NAME: " + m_Shapes[iSIndex]->m_name + "\n").c_str());
+					OutputDebugString(("Rendering shape TEX: " + m_Shapes[iSIndex]->m_texname + "\n").c_str());
+					OutputDebugString("==================\n");*/
+				}
 			}
 		}
 	}
@@ -686,7 +723,7 @@ void CN3ShapeMgr::Render()
 
 		pShpCur->Render();
 #if _DEBUG
-		pShpCur->RenderCollisionMesh();
+		//pShpCur->RenderCollisionMesh();
 #endif
 	}
 }
@@ -1345,11 +1382,11 @@ void CN3ShapeMgr::SubCell(const __Vector3& vPos, __CellSub** ppSubCell)			// 해
 							ppSubCell[i] = NULL;
 					break;
 				}
-
+							
 				if ( m_pCells[x][z] != NULL )								
 					ppSubCell[i] = &(m_pCells[x][z]->SubCells[xx+1][zz-1]);						
 				else
-					ppSubCell[i] = NULL;					
+					ppSubCell[i] = NULL;
 				break;
 
 			case 7:																		// z 감소.

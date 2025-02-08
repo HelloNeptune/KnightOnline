@@ -35,7 +35,10 @@ bool CN3River::Load(HANDLE hFile)
 	DWORD dwNum;
 	uint16_t wIndex[18] = {4,0,1,4,1,5,5,1,2,5,2,6,6,2,3,6,3,7};
 
+	DWORD posBeforeRiver = SetFilePointer(hFile, 0, NULL, FILE_CURRENT);
 	ReadFile(hFile, &m_iRiverCount, sizeof(m_iRiverCount), &dwNum, NULL);
+	DWORD posAfterRiver = SetFilePointer(hFile, 0, NULL, FILE_CURRENT);
+
 	if (m_iRiverCount == 0)	return true;
 	
 	m_pRiverInfo = new _RIVER_INFO[m_iRiverCount];

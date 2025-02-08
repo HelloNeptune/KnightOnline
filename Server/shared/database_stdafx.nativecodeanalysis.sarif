@@ -1,0 +1,727 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'ByteBuffer::m_doubleByte' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "analysisTarget": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/database/stdafx.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/ByteBuffer.h"
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "ByteBuffer::{ctor}",
+                  "decoratedName": "??0ByteBuffer@@QAE@ABV0@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "ByteBuffer::m_doubleByte"
+          }
+        },
+        {
+          "ruleId": "C6387",
+          "message": {
+            "text": "'hModule' could be '0':  this does not adhere to the specification for the function 'GetProcAddress'. "
+          },
+          "analysisTarget": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/database/stdafx.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                },
+                "region": {
+                  "startLine": 393,
+                  "startColumn": 3,
+                  "endLine": 393,
+                  "endColumn": 63
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "getMSTime",
+                  "decoratedName": "?getMSTime@@YA_JXZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 387,
+                            "startColumn": 29
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 388,
+                            "startColumn": 26
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 390,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 392,
+                            "startColumn": 11
+                          }
+                        },
+                        "message": {
+                          "text": "'hModule' may be NULL"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 393,
+                            "startColumn": 19
+                          }
+                        },
+                        "message": {
+                          "text": "'hModule' is an In/Out argument to 'GetProcAddress' (declared at c:\\program files (x86)\\windows kits\\10\\include\\10.0.22621.0\\um\\libloaderapi.h:309)"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 393,
+                            "startColumn": 19
+                          }
+                        },
+                        "message": {
+                          "text": "'hModule' should not be NULL, because this is not consistent with the SAL annotation on 'GetProcAddress'"
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6387",
+          "message": {
+            "text": "'hModule' could be '0':  this does not adhere to the specification for the function 'FreeLibrary'. See line 393 for an earlier location where this can occur"
+          },
+          "analysisTarget": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/database/stdafx.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                },
+                "region": {
+                  "startLine": 396,
+                  "startColumn": 3,
+                  "endLine": 396,
+                  "endColumn": 15
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "getMSTime",
+                  "decoratedName": "?getMSTime@@YA_JXZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 387,
+                            "startColumn": 29
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 388,
+                            "startColumn": 26
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 390,
+                            "startColumn": 6
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 392,
+                            "startColumn": 11
+                          }
+                        },
+                        "message": {
+                          "text": "'hModule' may be NULL"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ],
+                      "importance": "essential"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 393,
+                            "startColumn": 19
+                          }
+                        },
+                        "message": {
+                          "text": "'hModule' is an In/Out argument to 'GetProcAddress' (declared at c:\\program files (x86)\\windows kits\\10\\include\\10.0.22621.0\\um\\libloaderapi.h:309)"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 394,
+                            "startColumn": 7
+                          }
+                        },
+                        "message": {
+                          "text": "Skip this branch, (assume '!pGetTickCount64' is false)"
+                        }
+                      },
+                      "kinds": [
+                        "branch"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 396,
+                            "startColumn": 14
+                          }
+                        },
+                        "message": {
+                          "text": "'hModule' is an In/Out argument to 'FreeLibrary' (declared at c:\\program files (x86)\\windows kits\\10\\include\\10.0.22621.0\\um\\libloaderapi.h:171)"
+                        }
+                      },
+                      "kinds": [
+                        "declaration"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+                          },
+                          "region": {
+                            "startLine": 396,
+                            "startColumn": 14
+                          }
+                        },
+                        "message": {
+                          "text": "'hModule' should not be NULL, because this is not consistent with the SAL annotation on 'FreeLibrary'"
+                        }
+                      },
+                      "kinds": [
+                        "usage"
+                      ],
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'OverlappedStruct::m_event' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "analysisTarget": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/database/stdafx.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/SocketDefines.h"
+                },
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "OverlappedStruct::{ctor}",
+                  "decoratedName": "??0OverlappedStruct@@QAE@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "OverlappedStruct::m_event"
+          }
+        },
+        {
+          "ruleId": "C26110",
+          "message": {
+            "text": "Caller failing to hold lock 'this->m_writeMutex' before calling function 'std::_Mutex_base::unlock'."
+          },
+          "analysisTarget": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/database/stdafx.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/Socket.h"
+                },
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 27,
+                  "endLine": 48,
+                  "endColumn": 46
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "Socket::BurstEnd",
+                  "decoratedName": "?BurstEnd@Socket@@QAEXXZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/Socket.h"
+                          },
+                          "region": {
+                            "startLine": 48,
+                            "startColumn": 14
+                          }
+                        },
+                        "message": {
+                          "text": "'this' is a formal parameter to the current function"
+                        }
+                      },
+                      "kinds": [
+                        "Declaration"
+                      ]
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/Socket.h"
+                          },
+                          "region": {
+                            "startLine": 48,
+                            "startColumn": 46
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'CJvCryption::m_tkey' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "analysisTarget": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/database/stdafx.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/JvCryption.h"
+                },
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "CJvCryption::{ctor}",
+                  "decoratedName": "??0CJvCryption@@QAE@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "CJvCryption::m_tkey"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.42.34435.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/database/stdafx.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "c2f8cfd8ea9f8110e9710a0f045c0670d202190cb1078cc3ced08d7309187bd9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/ByteBuffer.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "01cf03e01284d9b6848cefa22efeb0963ac817bdbca14489bdfa0492f62951ef"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/globals.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "60bef2cfdc64c2ecb99dbc110394d165dd767e254e81d606489e0577793fee60"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/SocketDefines.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "cd08749b038935e1db01925def50d8f5df8704d779533daa16a7c7c110ac0349"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/Socket.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "29d953b8d54e68dc6d7cd5347ccbd5aeef0e77893354b8801db8de87e23718c5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///F:/Project-Anvil/KnightOnline/Server/shared/JvCryption.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "f5561045f61840146c0b646151c8c7c035b4c65fd9e235c95ccba4c992ae7e4d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/database/stdafx.h"
+          },
+          "hashes": {
+            "sha-256": "ec5099bb2b6e265d1ff55e168041ea67138233309650510296c3734da39c84a5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/stdafx.h"
+          },
+          "hashes": {
+            "sha-256": "e9cc7cd03afa60a86fe67c915dc7329e4ffeeeebd4940ae6f6d26a1807816d93"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/debugutils.h"
+          },
+          "hashes": {
+            "sha-256": "1e627c00fb6da6ca38296cce8781e2949f710c721620fad5202af9eb607e754b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/types.h"
+          },
+          "hashes": {
+            "sha-256": "3f39696564a5b1d1b40f2f5d0b04026fcbdda5648731661cb9cf82ca3c73afd5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/tstring.h"
+          },
+          "hashes": {
+            "sha-256": "45d4e20d31eacc2d1c212fc6bea52d32412743af0d9783262a988817fab3536c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/version.h"
+          },
+          "hashes": {
+            "sha-256": "46c014ffc022de43a83b46b25873b16ae463322c968247793ca3e0c541c6dbd7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/packets.h"
+          },
+          "hashes": {
+            "sha-256": "56ba4774e4e5bda3d7e07654e771b9f6912cb95645cb74ee8d5c37286ca81684"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/packet.h"
+          },
+          "hashes": {
+            "sha-256": "251c3ae097b947721673d313ae7a1e6e3d1f12b02f5663e4b8cf589f31778e32"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/thread.h"
+          },
+          "hashes": {
+            "sha-256": "fa33afc3c911826a503cb06e6d384c0844cac849a4dcbd0f598061c89d46b290"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/timethread.h"
+          },
+          "hashes": {
+            "sha-256": "8677404c0d5cc5811f9c2e937442ccd0d2a4e9e8ab4b5748fead05ca67e2878b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/atomic.h"
+          },
+          "hashes": {
+            "sha-256": "757b870498581333b79710fac4d5cabc9c22acdeae3048d7b5ec2e9bca6421d7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/network.h"
+          },
+          "hashes": {
+            "sha-256": "31648047eef8359c21fc8df73f63055655138d382701fa036b7bb7012b22645c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/circularbuffer.h"
+          },
+          "hashes": {
+            "sha-256": "52917803d215f92c670b34b3750e329d6533d882c83c49e913f07d7e9e75ff37"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/socketops.h"
+          },
+          "hashes": {
+            "sha-256": "fb588e1874b08c29bcfedde92c15dae5f176479b3740feaae6bfed593e77bc5b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/socketmgr.h"
+          },
+          "hashes": {
+            "sha-256": "6763fb2e4eafb16ae448908d7e66b8b3912e58d5205067225562948acf98feba"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/listensocketwin32.h"
+          },
+          "hashes": {
+            "sha-256": "60071bdabe15a4e5d947773942c98d02481a5de44fe2bf6bde24a629df2fc1ae"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/crc32.h"
+          },
+          "hashes": {
+            "sha-256": "92aeebd1d0a494efc96d298ec0605e9b8c0193c491a42aca9152ac216cc3ce1f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///f:/project-anvil/knightonline/server/shared/kosocket.h"
+          },
+          "hashes": {
+            "sha-256": "611e49ca3a694b82672cf244f88d63f39cbf1ebfdc795c28ad6459d2fd5bdfe5"
+          }
+        }
+      ]
+    }
+  ]
+}

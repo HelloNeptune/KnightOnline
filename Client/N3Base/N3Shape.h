@@ -44,9 +44,9 @@ protected:
 
 public:
 	virtual bool Load(HANDLE hFile);
-#ifdef _N3TOOL
+	#ifdef _N3TOOL
 	virtual bool Save(HANDLE hFile);
-#endif // end of _N3TOOL
+	#endif // end of _N3TOOL
 	
 	size_t			TexCount() { return m_TexRefs.size(); }
 	CN3Texture* Tex(size_t iIndex)
@@ -105,6 +105,10 @@ public:
 	int		m_iEventType;		// Event Type
 	int		m_iNPC_ID;			// NPC 로 쓰는 오브젝트일 경우 NPC ID
 	int		m_iNPC_Status;		// NPC 로 쓰는 오브젝트일 경우 Default Status
+
+	// @audit-info burada shape için yeni alanlar ekledik
+	std::string	m_name;
+	std::string m_texname;
 
 	bool	m_bDontRender; // 카메라 거리에 따라 이플래그가 설정되면 렌더링하지 않는다..
 	bool	m_bVisible;	// .. 

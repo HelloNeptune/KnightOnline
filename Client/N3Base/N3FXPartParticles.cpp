@@ -356,6 +356,7 @@ void CN3FXPartParticles::Init()
 //
 bool CN3FXPartParticles::Load(HANDLE hFile)
 {
+	//(LOAD)(PARTICLES)
 	if(!CN3FXPartBase::Load(hFile)) return false;
 	if(m_iVersion<3) return false;
 
@@ -452,6 +453,11 @@ bool CN3FXPartParticles::Load(HANDLE hFile)
 			ReadFile(hFile, pIDK3, sizeof(char)*72, &dwRWC, NULL);
 		}
 	}
+
+	char dbgStr[256];
+	DWORD position = SetFilePointer(hFile, 0, NULL, FILE_CURRENT);
+	sprintf_s(dbgStr, "[DEBUG] Position: 0x%08X (%d bytes)\n", position, position);
+	OutputDebugString(dbgStr);
 
 	Init();
 
@@ -553,18 +559,20 @@ bool CN3FXPartParticles::Tick()
 {
 	if(!CN3FXPartBase::Tick()) return false;
 
-#ifndef _N3TOOL
-	float fDist = (s_CameraData.vEye - m_pRefBundle->m_vPos).Magnitude();
+//#ifndef _N3TOOL
+//	float fDist = (s_CameraData.vEye - m_pRefBundle->m_vPos).Magnitude();
+//
+//	if(fDist > 30.0f)
+//		m_iNumLodParticle = (int)(m_iNumParticle / 3.0f);
+//	else
+//	{
+//		m_iNumLodParticle = (int)(m_iNumParticle * 1 / 3.0f + (m_iNumParticle * 2 / 3.0f) * ((30.0f - fDist) / 30.0f));
+//	}
+//#else
+//	m_iNumLodParticle = m_iNumParticle;
+//#endif
 
-	if(fDist > 30.0f)
-		m_iNumLodParticle = (int)(m_iNumParticle / 3.0f);
-	else
-	{
-		m_iNumLodParticle = (int)(m_iNumParticle * 1 / 3.0f + (m_iNumParticle * 2 / 3.0f) * ((30.0f - fDist) / 30.0f));
-	}
-#else
 	m_iNumLodParticle = m_iNumParticle;
-#endif
 
 	m_mtxVI = s_CameraData.mtxViewInverse;
 	m_mtxVI.PosSet(0,0,0);
@@ -601,7 +609,7 @@ bool CN3FXPartParticles::Tick()
 			m_vEmitterDir = m_vCurrVelocity;
 			m_vEmitterDir.Normalize();
 		}
-		else m_vEmitterDir.Set(0,0,1);
+		else m_vEmitterDir.Set(0,0,0);
 		
 	}
 	
@@ -728,7 +736,7 @@ void CN3FXPartParticles::Render()
 
 	//s_lpD3DDev->SetTextureStageState( 0, D3DTSS_ADDRESSU, D3DTADDRESS_CLAMP );
 	//s_lpD3DDev->SetTextureStageState( 0, D3DTSS_ADDRESSV, D3DTADDRESS_CLAMP );
-	
+
 	s_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLOROP,   D3DTOP_MODULATE );
 	s_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );		
 	s_lpD3DDev->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
@@ -979,7 +987,9 @@ void CN3FXPartParticles::CreateParticles_Spread()
 		//bundle의 방향 적용..
 		if(m_pRefBundle)
 		{			
-			if(RotateQuaternion(v, m_pRefBundle->m_vDir, &Qt))
+			bool q = RotateQuaternion(v, m_pRefBundle->m_vDir, &Qt);
+
+			if(q)
 			{
 				RotMtx = Qt;
 				//vDir *= RotMtx;

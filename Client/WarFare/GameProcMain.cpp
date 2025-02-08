@@ -529,7 +529,7 @@ void CGameProcMain::Tick()
 	s_pPlayer->Tick();									// 플레이어 틱(갱신)
 	s_pWorldMgr->Tick();
 	s_pOPMgr->Tick(s_pPlayer->Position());				// 다른 유저 관리자 틱(갱신)
-//	s_pFX->Tick(); //내부에서 카메라 값을 쓸 경우 위치가 오차가 생겨 Render()함수 안으로 옮김...
+	s_pFX->Tick(); //내부에서 카메라 값을 쓸 경우 위치가 오차가 생겨 Render()함수 안으로 옮김...
 
 	__Vector3 ListenerPos = s_pPlayer->Position();
 	__Vector3 ListenerDir = s_pPlayer->Direction();
@@ -677,6 +677,7 @@ void CGameProcMain::Tick()
 	}
 }
 
+// @follow-up CGameProcMain::Render method
 void CGameProcMain::Render()
 {
 	if ( FALSE == m_bLoadComplete )	return; 		// 로딩이 끝났냐??
@@ -697,13 +698,15 @@ void CGameProcMain::Render()
 	CN3Base::s_lpD3DDev->SetSamplerState(1, D3DSAMP_MIPFILTER, dwFilter);
 
 	ACT_WORLD->RenderTerrain();						// 지형 렌더..
-	ACT_WORLD->RenderShape();						// 물체 렌더..
-	s_pOPMgr->Render(fSunAngle);				// 다른 플레이어 렌더..
+	//ACT_WORLD->RenderShape();						// 물체 렌더..
+	//s_pOPMgr->Render(fSunAngle);				// 다른 플레이어 렌더..
+
+	//NOTE(burak) character render 
 	s_pPlayer->Render(fSunAngle);			// 플레이어 렌더..
 
 	// NOTE(srmeier): uncomment to render the collision meshes
 #ifdef _DEBUG
-	ACT_WORLD->RenderCollisionWithShape(s_pPlayer->Position());				// 충돌 메쉬 렌더..
+	//ACT_WORLD->RenderCollisionWithShape(s_pPlayer->Position());				// 충돌 메쉬 렌더..
 #endif
 
 #ifdef _N3_64GRID_
@@ -712,14 +715,14 @@ void CGameProcMain::Render()
 
 	this->RenderTarget();						// 타겟으로 잡은 캐릭터 혹은 오브젝트 렌더링..
 
-	ACT_WORLD->RenderGrass();						//	풀 렌더 (asm)
+	//ACT_WORLD->RenderGrass();						//	풀 렌더 (asm)
 	s_pFX->Tick();
 	s_pFX->Render();
-	ACT_WORLD->RenderBirdMgr();
+	//ACT_WORLD->RenderBirdMgr();
 
 	CN3Base::s_AlphaMgr.Render(); // 알파 정렬된 폴리곤들 렌더링..
 	
-	ACT_WORLD->RenderSkyWeather();							// 하늘 렌더링..
+	//ACT_WORLD->RenderSkyWeather();							// 하늘 렌더링..
 	
 	CGameProcedure::Render(); // UI 나 그밖의 기본적인 것들 렌더링..
 	if(m_pWarMessage) m_pWarMessage->RenderMessage();
@@ -778,8 +781,8 @@ void CGameProcMain::RenderTarget()
 
 	// NOTE(srmeier): uncomment to render the collision meshes
 #ifdef _DEBUG
-	if(pTarget) pTarget->RenderCollisionMesh();
-	if(s_pPlayer->m_pObjectTarget) s_pPlayer->m_pObjectTarget->RenderCollisionMesh();
+	//if(pTarget) pTarget->RenderCollisionMesh();
+	//if(s_pPlayer->m_pObjectTarget) s_pPlayer->m_pObjectTarget->RenderCollisionMesh();
 #endif
 }
 
@@ -4333,6 +4336,7 @@ bool CGameProcMain::MsgRecv_ItemTradeResult(Packet& pkt)			// 아이템 상거�
 	return true;
 }
 
+// @follow-up Init zone method
 void CGameProcMain::InitZone(int iZone, const __Vector3& vPosPlayer)
 {
 	if(m_pSnd_Battle) m_pSnd_Battle->Stop(0.0f); // 음악 멈추기..
@@ -7323,6 +7327,7 @@ bool CGameProcMain::OnMouseMove(POINT ptCur, POINT ptPrev)
 	// NOTE: check if cursor position has changed
 	if(ptCur.x != ptPrev.x || ptCur.y != ptPrev.y)
 	{
+
 		// NOTE: check if something has been selected by the cursor
 		if(m_pMagicSkillMng->m_dwRegionMagicState==1)
 		{
@@ -7338,6 +7343,7 @@ bool CGameProcMain::OnMouseMove(POINT ptCur, POINT ptPrev)
 			vDir.Normalize();
 
 			bool bColShape = ACT_WORLD->CheckCollisionWithShape(vMyPos, vDir, vGap.Magnitude(), &m_vMouseSkillPos, &vNormal);
+			
 
 			if(!bColShape) // 타겟도 없으면..
 			{

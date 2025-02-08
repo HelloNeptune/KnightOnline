@@ -386,6 +386,7 @@ void CN3FXPartBase::Stop()
 //
 bool CN3FXPartBase::Tick()
 {
+	// FXPartTick(tick)
 	if(m_dwState==FX_PART_STATE_DEAD || m_dwState==FX_PART_STATE_READY) return false;
 
 	m_fCurrLife += CN3Base::s_fSecPerFrm;
@@ -487,12 +488,16 @@ bool CN3FXPartBase::Load(HANDLE hFile)
 		
 		if(m_dwRenderFlag & RF_NOTZBUFFER) m_dwZEnable = D3DZB_FALSE;
 		else m_dwZEnable = D3DZB_TRUE;
+
 		if(m_dwRenderFlag & RF_NOTZWRITE) m_dwZWrite = FALSE;
 		else m_dwZWrite = TRUE;
+		
 		if(m_dwRenderFlag & RF_DOUBLESIDED) m_dwDoubleSide = D3DCULL_NONE;
 		else m_dwDoubleSide = D3DCULL_CCW;
+		
 		if(m_dwRenderFlag & RF_NOTUSELIGHT) m_dwLight = FALSE;
 		else m_dwLight = TRUE;
+		
 		if(m_dwRenderFlag & RF_ALPHABLENDING) m_bAlpha = TRUE;
 		else m_bAlpha = FALSE;		
 	}

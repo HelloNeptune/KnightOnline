@@ -44,7 +44,10 @@ public:
 		if(nIndex == m_nCount) { nIndex = m_nCount - 1; fDelta = 0; }
 		else fDelta = (fFrm - nIndex * fD)/fD;
 		
-		if(0.0f != fDelta) { v = (((__Vector3*)m_pDatas)[nIndex] * (1.0f - fDelta)) + (((__Vector3*)m_pDatas)[nIndex+1] * fDelta); }
+		if(0.0f != fDelta) 
+		{ 
+			v = (((__Vector3*)m_pDatas)[nIndex] * (1.0f - fDelta)) + (((__Vector3*)m_pDatas)[nIndex+1] * fDelta); 
+		}
 		else v = ((__Vector3*)m_pDatas)[nIndex];
 		return true;
 	}

@@ -423,6 +423,7 @@ void CN3SPart::PartialRender(int iCount, uint16_t* pIndices)
 	if(m_bOutOfCameraRange || m_PMInst.GetNumVertices() <= 0) return;
 
 #ifdef _DEBUG
+	// BURASI COK ONEMLI
 	CN3Base::s_RenderInfo.nShape_Part++; // Rendering Information Update...
 #endif
 

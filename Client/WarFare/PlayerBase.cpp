@@ -869,7 +869,7 @@ void CPlayerBase::Render(float fSunAngle)
 #ifdef _DEBUG
 	if(m_pShapeExtraRef) // 오브젝트 형식이면...
 	{
-		m_pShapeExtraRef->RenderCollisionMesh();
+		//m_pShapeExtraRef->RenderCollisionMesh();
 		return;
 	}
 #endif
@@ -964,7 +964,7 @@ void CPlayerBase::Render(float fSunAngle)
 	if(m_Chr.CollisionMesh()) // 충돌 체크용 박스..
 	{
 		s_lpD3DDev->SetTransform(D3DTS_WORLD, &(m_Chr.m_Matrix));
-		m_Chr.CollisionMesh()->Render(0xffff0000);
+		//m_Chr.CollisionMesh()->Render(0xffff0000);
 	}
 
 	__Vector3 vLine[3];
@@ -973,7 +973,7 @@ void CPlayerBase::Render(float fSunAngle)
 	vLine[2] = vLine[1]; vLine[2].y += 3.0f;
 	__Matrix44 mtx; mtx.Identity();
 	CN3Base::s_lpD3DDev->SetTransform(D3DTS_WORLD, &mtx);
-	CN3Base::RenderLines(vLine, 2, 0xff00ffff);
+	//CN3Base::RenderLines(vLine, 2, 0xff00ffff);
 #endif
 
 	if(m_InfoBase.bRenderID && m_pIDFont)
@@ -1236,11 +1236,13 @@ bool CPlayerBase::Action(e_StateAction eState, bool bLooping, CPlayerBase* pTarg
 	this->AnimationClear(); // 에니메이션 큐의 내용을 지운다.. 그래야 바로 에니메이션이 나간다.
 	if(ANI_UNKNOWN != eAniToRestore) this->AnimationAdd(eAniToRestore, false); // 다음 에니메이션이 있으면 데크에 집어 넣는다.
 
-	if(bNeedUpperAnimationOnly) // 상체만 한다..
+	if (bNeedUpperAnimationOnly) { // 상체만 한다..
 		m_Chr.AniUpperSet(eAni, fFreezeTime);
+	}
 	else // 걍 에니메이션..
 	{
 		m_Chr.AniCurSet(eAni, bOnceAndFreeze, fBlendTime, fFreezeTime);
+		//m_Chr.AniCurSet(eAni, false, FLT_MIN, 0, false);
 	}
 
 	if(bForceSet && m_Chr.m_FrmCtrl.pAniData) // 강제 설정이면..
@@ -1866,11 +1868,11 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 		pPlug->ScaleSet(__Vector3(fScale, fScale, fScale));
 		pPlug->m_nJointIndex = iJoint; // 붙는 위치 정하기..
 	}
-//	else if(PLUG_POS_BACK == ePos)
-//	{
-//		CN3CPlug_Cloak *pPlugCloak = (CN3CPlug_Cloak*)pPlug;
-//		pPlugCloak->GetCloak()->SetPlayerBase(this);
-//	}
+	//	else if(PLUG_POS_BACK == ePos)
+	//	{
+	//		CN3CPlug_Cloak *pPlugCloak = (CN3CPlug_Cloak*)pPlug;
+	//		pPlugCloak->GetCloak()->SetPlayerBase(this);
+	//	}
 
 	if(pPlug && NULL == pItemBasic && NULL == pItemExt) pPlug->TexOverlapSet(""); // 기본 착용이면..
 
@@ -1882,8 +1884,11 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 		if((pItemExt->byMagicOrRare==ITEM_ATTRIB_UNIQUE && pItemExt->byDamageFire > 0) || (pItemExt->byDamageFire >= LIMIT_FX_DAMAGE)) // 17 추가데미지 - 불
 		{
 			CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
-			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_FIRE_MAIN);
-			__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(FXID_SWORD_FIRE_TAIL);
+			//__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_FIRE_MAIN);
+			//__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(FXID_SWORD_FIRE_TAIL);
+
+			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(12060);
+			__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(12061);
 			
 			std::string szFXMain, szFXTail;
 			if(pFXMain) szFXMain = pFXMain->szFN;
@@ -1895,8 +1900,11 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 		else if((pItemExt->byMagicOrRare==ITEM_ATTRIB_UNIQUE && pItemExt->byDamageIce > 0) || (pItemExt->byDamageIce >= LIMIT_FX_DAMAGE))// 18 추가데미지 - 얼음
 		{
 			CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
-			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_ICE_MAIN);
-			__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(FXID_SWORD_ICE_TAIL);
+			//__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_ICE_MAIN);
+			//__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(FXID_SWORD_ICE_TAIL);
+
+			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(12050);
+			__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(12051);
 			
 			std::string szFXMain, szFXTail;
 			if(pFXMain) szFXMain = pFXMain->szFN;
@@ -1911,6 +1919,9 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 			CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
 			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_LIGHTNING_MAIN);
 			__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(FXID_SWORD_LIGHTNING_TAIL);
+
+			//__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(12130);
+			//__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(12131);
 			
 			std::string szFXMain, szFXTail;
 			if(pFXMain) szFXMain = pFXMain->szFN;
@@ -1923,15 +1934,26 @@ CN3CPlugBase* CPlayerBase::PlugSet(e_PlugPosition ePos, const std::string& szFN,
 		else if((pItemExt->byMagicOrRare==ITEM_ATTRIB_UNIQUE && pItemExt->byDamagePoison > 0) || (pItemExt->byDamagePoison >= LIMIT_FX_DAMAGE))// 20 추가데미지 - 독			
 		{
 			CN3CPlug* pCPlug = (CN3CPlug*)pPlug;
+			
 			__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(FXID_SWORD_POISON_MAIN);
 			__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(FXID_SWORD_POISON_TAIL);
+			//__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(12090);
+			//__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(12091);
+			
+			// fire
+			//__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(12060);
+			//__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(12061);
 
+			// poison
+			//__TABLE_FX* pFXMain = s_pTbl_FXSource.Find(12070);
+			//__TABLE_FX* pFXTail = s_pTbl_FXSource.Find(12071);
 			std::string szFXMain, szFXTail;
 			if(pFXMain) szFXMain = pFXMain->szFN;
 			else szFXMain = "";
 			if(pFXTail) szFXTail = pFXTail->szFN;
 			else szFXTail = "";
 			
+			// Burası silah fx'inin init edildigi yer, bizim de baslangic noktamiz olacakk
 			pCPlug->InitFX(szFXMain, szFXTail, 0xffff00ff);
 		}
 	}
